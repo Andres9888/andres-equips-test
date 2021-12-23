@@ -7,7 +7,7 @@ import { Card, Typography, Space, Rate } from 'antd';
 
 const { Text, Title } = Typography;
 
-export const ListingCard = ({ bank, favorites, setFavorites }: Props) => {
+export const ListingCard = ({ bank, favorites, setFavorites, showDrawer }: Props) => {
   return (
     <Card hoverable>
       <div className="listing-card__details">

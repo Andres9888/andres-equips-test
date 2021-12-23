@@ -14,7 +14,7 @@ function App() {
       method: 'GET',
       url: 'https://banks.data.fdic.gov/api/institutions',
       params: {
-        fields: 'NAME,ADDRESS,ASSET,ACTIVE,ESTYMD,NETINC,STNAME,WEBADDR,ZIP,UNINUM',
+        fields: 'NAME,ADDRESS,ASSET,ACTIVE,ESTYMD,NETINC,STNAME,WEBADDR,ZIP,UNINUM,OFFICES,',
         sort_by: 'NAME',
         sort_order: 'ASC',
         limit: 12,
