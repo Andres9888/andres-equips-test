@@ -32,7 +32,7 @@ function App() {
   return (
     <>
       <AppHeader handleSearchChange={handleSearchChange} searchTerm={searchTerm} />
-      <AppContent data={data} error={error} />
+      <AppContent data={data} error={error} searchTerm={searchTerm} />
     </>
   );
 }

@@ -25,7 +25,16 @@ export const ListingCard = ({ bank, favorites, setFavorites }: Props) => {
           <Text ellipsis className="listing-card__address">
             {`${bank.data.STNAME} , ${bank.data.ZIP}`}
           </Text>
-          <Rate defaultValue={1} onChange={() => setFavorites([...favorites, bank.data.ID])} character={<HeartOutlined />} count={1} />
+          <Rate
+            defaultValue={favorites.find(x => x.data.ID === bank.data.ID) ? 1 : 0}
+            onChange={() =>
+              favorites.find(x => x.data.ID === bank.data.ID)
+                ? setFavorites([...favorites.filter(e => e.data.ID !== bank.data.ID)])
+                : setFavorites([...favorites, bank])
+            }
+            character={<HeartOutlined />}
+            count={1}
+          />
         </div>
       </div>
     </Card>
