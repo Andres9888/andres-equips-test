@@ -1,25 +1,39 @@
-import React from 'react';
-import logo from './logo.svg';
 import './App.css';
+import { useState } from 'react';
+
+import axios from 'axios';
+import useSWR from 'swr';
+
+import AppContent from './sections/AppContent';
+import AppHeader from './sections/AppHeader';
 
 function App() {
+  const [searchTerm, setSearchTerm] = useState('test');
+  const { data, error } = useSWR(['/institutions', searchTerm], () =>
+    axios({
+      method: 'GET',
+      url: 'https://banks.data.fdic.gov/api/institutions',
+      params: {
+        fields: 'NAME,ADDRESS,ASSET,ACTIVE,ESTYMD,NETINC,STNAME,WEBADDR,ZIP,UNINUM',
+        sort_by: 'NAME',
+        sort_order: 'ASC',
+        limit: 10,
+        offset: 0,
+        search: `NAME:${searchTerm}`,
+      },
+    }).then(res => res.data)
+  );
+
+  const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchTerm(event.target.value);
+  };
+
+  console.log(data);
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <AppHeader handleSearchChange={handleSearchChange} searchTerm={searchTerm} />
+      <AppContent data={data} error={error} />
+    </>
   );
 }
 
