@@ -17,7 +17,7 @@ function App() {
         fields: 'NAME,ADDRESS,ASSET,ACTIVE,ESTYMD,NETINC,STNAME,WEBADDR,ZIP,UNINUM',
         sort_by: 'NAME',
         sort_order: 'ASC',
-        limit: 10,
+        limit: 12,
         offset: 0,
         search: `NAME:${searchTerm}`,
       },
