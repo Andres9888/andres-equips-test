@@ -1,19 +1,26 @@
 // @ts-nocheck
 
 /* eslint-disable */
-import { BankTwoTone, HomeTwoTone } from '@ant-design/icons';
-import { Card, List, Layout, Typography } from 'antd';
-const { Text, Title } = Typography;
+
+import { ListingCard } from './components/ListingCard';
+
+import { List, Layout } from 'antd';
+import useLocalStorageState from 'use-local-storage-state';
+
 const { Content } = Layout;
 function AppContent({ data, error }) {
+  const [favorites, setFavorites] = useLocalStorageState('favorites', []);
+
   if (!data) return <p>Loading...</p>;
   if (error) return <p>Error!</p>;
+
   return (
     <Content className="home">
       <div className="home-listings">
         <List
           grid={{
-            gutter: 8,
+            gutter: 16,
+            column: 4,
             xs: 1,
             sm: 2,
             lg: 4,
@@ -21,23 +28,7 @@ function AppContent({ data, error }) {
           dataSource={data.data}
           renderItem={bank => (
             <List.Item>
-              <Card hoverable>
-                <div className="listing-card__details">
-                  <div className="listing-card__description">
-                    <Title level={4} className="listing-card__price">
-                      <BankTwoTone />
-                      {bank.data.NAME}
-                    </Title>
-                    <Text strong ellipsis className="listing-card__title">
-                      <HomeTwoTone />
-                      {bank.data.ADDRESS}
-                    </Text>
-                    <Text ellipsis className="listing-card__address">
-                      {`${bank.data.STNAME} , ${bank.data.ZIP}`}
-                    </Text>
-                  </div>
-                </div>
-              </Card>
+              <ListingCard favorites={favorites} setFavorites={setFavorites} bank={bank} />
             </List.Item>
           )}
         />
