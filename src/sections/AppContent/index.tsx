@@ -4,14 +4,16 @@
 
 import { ListingCard } from './components/ListingCard';
 
-import { List, Layout, Drawer } from 'antd';
+import { List, Layout, Drawer, Input, Pagination, Affix } from 'antd';
 import useLocalStorageState from 'use-local-storage-state';
 
 import { useState } from 'react';
-
+const { TextArea } = Input;
 const { Content } = Layout;
 function AppContent({ data, error, searchTerm }) {
   const [favorites, setFavorites] = useLocalStorageState('favorites', []);
+  const [notes, setNotes] = useLocalStorageState('notes', []);
+  const [value, setValue] = useState('');
   const [drawer, setDrawer] = useState({
     visible: false,
     user: null,
@@ -93,7 +95,7 @@ function AppContent({ data, error, searchTerm }) {
                   onClick={() =>
                     setDrawer({
                       visible: true,
-                      user: bank.data.ID,
+                      user: bank.data,
                     })
                   }
                   key={`a-${bank.data.ID}`}
@@ -106,7 +108,14 @@ function AppContent({ data, error, searchTerm }) {
             </List.Item>
           )}
         />
-        <Drawer width={640} placement="right" closable={true} onClose={onClose} visible={drawer.visible}></Drawer>
+        <Drawer width={640} placement="right" closable={true} onClose={onClose} visible={drawer.visible}>
+          {drawer.user && (
+            <>
+              <h1>{drawer.user.NAME}</h1>
+              <TextArea onChange={e => setNotes([...notes, { ID: drawer.user.ID, note: e.target.value }])} rows={4} />
+            </>
+          )}
+        </Drawer>
       </div>
     </Content>
   );
