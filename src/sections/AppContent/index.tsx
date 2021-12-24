@@ -4,7 +4,7 @@
 
 import { ListingCard } from './components/ListingCard';
 
-import { List, Layout, Drawer, Input, Pagination, Affix } from 'antd';
+import { List, Layout, Drawer, Input, Pagination, Affix, Skeleton, Card } from 'antd';
 import useLocalStorageState from 'use-local-storage-state';
 
 import { useState } from 'react';
@@ -19,7 +19,7 @@ function AppContent({ data, error, searchTerm }) {
     user: null,
   });
   const [bankId, setBankId] = useState('');
-
+  const emptyData = [{}, {}, {}, {}, {}, {}, {}, {}];
   const showDrawer = ID => {
     setDrawer({
       visible: true,
@@ -72,7 +72,28 @@ function AppContent({ data, error, searchTerm }) {
       </Content>
     );
   }
-  if (!data) return <p>Loading...</p>;
+  if (!data)
+    return (
+      <Content className="home">
+        <div className="home-listings">
+          <List
+            grid={{
+              gutter: 16,
+              column: 4,
+              xs: 1,
+              sm: 2,
+              lg: 4,
+            }}
+            dataSource={emptyData}
+            renderItem={() => (
+              <List.Item>
+                <Card loading className="listings-skeleton__card" />
+              </List.Item>
+            )}
+          />
+        </div>
+      </Content>
+    );
   if (error) return <p>Error!</p>;
 
   return (
