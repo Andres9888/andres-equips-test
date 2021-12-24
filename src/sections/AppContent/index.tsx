@@ -2,7 +2,7 @@
 
 /* eslint-disable */
 
-import { ListingCard, ListingSkeleton } from './components';
+import { ListingCard, ListingSkeleton, DrawerContent } from './components';
 
 import { List, Layout, Drawer, Input, Pagination, Affix, Card, Button } from 'antd';
 import useLocalStorageState from 'use-local-storage-state';
@@ -13,31 +13,11 @@ const { Content } = Layout;
 function AppContent({ data, error, searchTerm }) {
   const [favorites, setFavorites] = useLocalStorageState('favorites', []);
   const [notes, setNotes] = useLocalStorageState('notes', []);
-  const [value, setValue] = useState('');
+
   const [drawer, setDrawer] = useState({
     visible: false,
     user: null,
   });
-
-  const showDrawer = ID => {
-    setDrawer({
-      visible: true,
-      user: ID,
-    });
-  };
-
-  const onClose = () => {
-    setDrawer({
-      visible: false,
-      user: null,
-    });
-  };
-
-  const handleClick = () => {
-    notes.find(x => x.ID === drawer.user.ID)
-      ? setNotes([...notes.filter(x => x.ID !== drawer.user.ID), { ID: drawer.user.ID, note: value }])
-      : setNotes([...notes, { ID: drawer.user.ID, note: value }]);
-  };
 
   if (!searchTerm) {
     return (
@@ -80,6 +60,15 @@ function AppContent({ data, error, searchTerm }) {
   if (!data) return <ListingSkeleton />;
   if (error) return <p>Error!</p>;
 
+  const showDrawer = bank => {};
+
+  const onClose = () => {
+    setDrawer({
+      visible: false,
+      user: null,
+    });
+  };
+
   return (
     <Content className="home">
       <div className="home-listings">
@@ -114,16 +103,7 @@ function AppContent({ data, error, searchTerm }) {
           )}
         />
         <Drawer width={640} placement="right" closable={true} onClose={onClose} visible={drawer.visible}>
-          {drawer.user && (
-            <>
-              <h1>{drawer.user.NAME}</h1>
-
-              <TextArea value={value} onChange={e => setValue(e.target.value)} rows={4} />
-              <Button onClick={handleClick} type="primary">
-                Save Note
-              </Button>
-            </>
-          )}
+          {drawer.user && <DrawerContent drawer={drawer} notes={notes} setNotes={setNotes} />}
         </Drawer>
       </div>
     </Content>
