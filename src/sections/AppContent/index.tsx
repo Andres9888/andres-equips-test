@@ -2,9 +2,9 @@
 
 /* eslint-disable */
 
-import { ListingCard } from './components/ListingCard';
+import { ListingCard, ListingSkeleton } from './components';
 
-import { List, Layout, Drawer, Input, Pagination, Affix, Skeleton, Card } from 'antd';
+import { List, Layout, Drawer, Input, Pagination, Affix, Card, Button } from 'antd';
 import useLocalStorageState from 'use-local-storage-state';
 
 import { useState } from 'react';
@@ -18,8 +18,7 @@ function AppContent({ data, error, searchTerm }) {
     visible: false,
     user: null,
   });
-  const [bankId, setBankId] = useState('');
-  const emptyData = [{}, {}, {}, {}, {}, {}, {}, {}];
+
   const showDrawer = ID => {
     setDrawer({
       visible: true,
@@ -32,6 +31,12 @@ function AppContent({ data, error, searchTerm }) {
       visible: false,
       user: null,
     });
+  };
+
+  const handleClick = () => {
+    notes.find(x => x.ID === drawer.user.ID)
+      ? setNotes([...notes.filter(x => x.ID !== drawer.user.ID), { ID: drawer.user.ID, note: value }])
+      : setNotes([...notes, { ID: drawer.user.ID, note: value }]);
   };
 
   if (!searchTerm) {
@@ -55,7 +60,7 @@ function AppContent({ data, error, searchTerm }) {
                     onClick={() =>
                       setDrawer({
                         visible: true,
-                        user: bank.ID,
+                        user: bank,
                       })
                     }
                     key={`a-${bank.ID}`}
@@ -72,28 +77,7 @@ function AppContent({ data, error, searchTerm }) {
       </Content>
     );
   }
-  if (!data)
-    return (
-      <Content className="home">
-        <div className="home-listings">
-          <List
-            grid={{
-              gutter: 16,
-              column: 4,
-              xs: 1,
-              sm: 2,
-              lg: 4,
-            }}
-            dataSource={emptyData}
-            renderItem={() => (
-              <List.Item>
-                <Card loading className="listings-skeleton__card" />
-              </List.Item>
-            )}
-          />
-        </div>
-      </Content>
-    );
+  if (!data) return <ListingSkeleton />;
   if (error) return <p>Error!</p>;
 
   return (
@@ -133,7 +117,11 @@ function AppContent({ data, error, searchTerm }) {
           {drawer.user && (
             <>
               <h1>{drawer.user.NAME}</h1>
-              <TextArea onChange={e => setNotes([...notes, { ID: drawer.user.ID, note: e.target.value }])} rows={4} />
+
+              <TextArea value={value} onChange={e => setValue(e.target.value)} rows={4} />
+              <Button onClick={handleClick} type="primary">
+                Save Note
+              </Button>
             </>
           )}
         </Drawer>
