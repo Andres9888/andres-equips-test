@@ -1,9 +1,9 @@
 /* eslint-disable */
 // @ts-nocheck
-
+import { BankTwoTone, HomeTwoTone, CalendarTwoTone } from '@ant-design/icons';
 import { useEffect, useState } from 'react';
-import { List, Layout, Drawer, Input, Pagination, Affix, Card, Button } from 'antd';
-
+import { Input, Space, Button } from 'antd';
+import { FcMoneyTransfer, FcCalendar, FcLibrary, FcAddressBook } from 'react-icons/fc';
 const { TextArea } = Input;
 export const DrawerContent = ({ drawer, notes, setNotes }) => {
   const [value, setValue] = useState('');
@@ -19,7 +19,32 @@ export const DrawerContent = ({ drawer, notes, setNotes }) => {
   };
   return (
     <>
-      <h1>{drawer.user.NAME}</h1>
+      <h3>
+        <Space>
+          <FcLibrary />
+          {drawer.user.NAME}
+        </Space>
+      </h3>
+      <h3>
+        <FcAddressBook />
+        {drawer.user.ADDRESS}
+      </h3>
+
+      <h3>{`${drawer.user.STNAME} , ${drawer.user.ZIP}`}</h3>
+      <h3>
+        <Space>
+          <FcCalendar />
+          {`Established Date : ${drawer.user.ESTYMD}`}
+        </Space>
+      </h3>
+
+      <h3>
+        <Space>
+          <FcMoneyTransfer />
+          {`Total Assets : ${drawer.user.ASSET}`}
+        </Space>
+      </h3>
+
       <TextArea value={value} onChange={e => setValue(e.target.value)} rows={4} />
       <Button onClick={handleClick} type="primary">
         Save Note

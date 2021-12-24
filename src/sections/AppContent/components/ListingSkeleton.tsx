@@ -3,7 +3,7 @@
 
 import { Card, List, Layout } from 'antd';
 const { Content } = Layout;
-const emptyData = [{}, {}, {}, {}, {}, {}, {}, {}];
+const emptyData = new Array(16).fill({});
 export const ListingSkeleton = () => {
   return (
     <Content className="home">

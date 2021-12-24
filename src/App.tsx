@@ -1,7 +1,6 @@
 import './App.css';
 import { useState } from 'react';
 
-import { Pagination } from 'antd';
 import axios from 'axios';
 import useSWR from 'swr';
 
@@ -15,7 +14,7 @@ function App() {
     axios
       .get(
         `https://banks.data.fdic.gov/api/institutions?offset=${(page - 1) *
-          20}&fields=NAME,ADDRESS,ASSET,ACTIVE,ESTYMD,NETINC,STNAME,WEBADDR,ZIP,UNINUM,OFFICES,&sort_by=NAME&sort_order=ASC&limit=20&search=NAME:${searchTerm}`
+          16}&fields=NAME,ADDRESS,ASSET,ACTIVE,ESTYMD,NETINC,STNAME,WEBADDR,ZIP,UNINUM,OFFICES,&sort_by=NAME&sort_order=ASC&limit=16&search=NAME:${searchTerm}`
       )
       .then(res => res.data)
   );
@@ -28,8 +27,7 @@ function App() {
   return (
     <>
       <AppHeader handleSearchChange={handleSearchChange} searchTerm={searchTerm} />
-      <Pagination className="listings-pagination" current={page} defaultPageSize={20} total={300} onChange={newPage => setPage(newPage)} />
-      <AppContent data={data} error={error} searchTerm={searchTerm} />
+      <AppContent data={data} error={error} page={page} searchTerm={searchTerm} setPage={setPage} />
     </>
   );
 }

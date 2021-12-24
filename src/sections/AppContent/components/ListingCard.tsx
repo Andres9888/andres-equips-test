@@ -4,6 +4,7 @@ import useLocalStorageState from 'use-local-storage-state';
 
 import { BankTwoTone, HomeTwoTone, HeartOutlined } from '@ant-design/icons';
 import { Card, Typography, Space, Rate } from 'antd';
+import { motion, AnimatePresence } from 'framer-motion';
 
 const { Text, Title } = Typography;
 
