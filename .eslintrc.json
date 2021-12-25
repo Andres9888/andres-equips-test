@@ -104,6 +104,7 @@
         }
       }
     ],
+    "import/prefer-default-export": "off",
     "prettier/prettier": "error",
     "no-var": "warn",
     "no-console": "off",

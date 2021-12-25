@@ -1,3 +1,5 @@
+import react from 'react';
+
 import { BankOutlined } from '@ant-design/icons';
 import { Input, Layout, Affix } from 'antd';
 

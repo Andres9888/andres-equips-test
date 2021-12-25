@@ -2,6 +2,7 @@
 // @ts-nocheck
 
 import { Card, List, Layout } from 'antd';
+
 const { Content } = Layout;
 const emptyData = new Array(16).fill({});
 export const ListingSkeleton = () => {
@@ -9,6 +10,7 @@ export const ListingSkeleton = () => {
     <Content className="home">
       <div className="home-listings">
         <List
+          dataSource={emptyData}
           grid={{
             gutter: 16,
             column: 4,
@@ -16,7 +18,6 @@ export const ListingSkeleton = () => {
             sm: 2,
             lg: 4,
           }}
-          dataSource={emptyData}
           renderItem={() => (
             <List.Item>
               <Card loading className="listings-skeleton__card" />

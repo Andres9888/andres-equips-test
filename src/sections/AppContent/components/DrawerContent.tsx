@@ -1,11 +1,12 @@
 /* eslint-disable */
 // @ts-nocheck
-import { BankTwoTone, HomeTwoTone, CalendarTwoTone } from '@ant-design/icons';
 import { useEffect, useState } from 'react';
-import { Input, Space, Button } from 'antd';
+import { HeartOutlined } from '@ant-design/icons';
+import { Input, Space, Button, Rate } from 'antd';
 import { FcMoneyTransfer, FcCalendar, FcLibrary, FcAddressBook } from 'react-icons/fc';
+
 const { TextArea } = Input;
-export const DrawerContent = ({ drawer, notes, setNotes }) => {
+export const DrawerContent = ({ drawer, notes, setNotes, favorites, setFavorites }) => {
   const [value, setValue] = useState('');
 
   useEffect(() => {
@@ -45,10 +46,20 @@ export const DrawerContent = ({ drawer, notes, setNotes }) => {
         </Space>
       </h3>
 
-      <TextArea value={value} onChange={e => setValue(e.target.value)} rows={4} />
-      <Button onClick={handleClick} type="primary">
+      <TextArea rows={4} value={value} onChange={e => setValue(e.target.value)} />
+      <Button type="primary" onClick={handleClick}>
         Save Note
       </Button>
+      <Rate
+        character={<HeartOutlined />}
+        count={1}
+        defaultValue={favorites.find(x => x.data.ID === drawer.user.ID) ? 1 : 0}
+        onChange={() =>
+          favorites.find(x => x.data.ID === drawer.user.ID)
+            ? setFavorites([...favorites.filter(e => e.data.ID !== drawer.user.ID)])
+            : setFavorites([...favorites, { data: drawer.user }])
+        }
+      />
     </>
   );
 };

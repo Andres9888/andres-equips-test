@@ -1,11 +1,11 @@
 import { useState } from 'react';
 
-import { List, Layout, Drawer, Input, Pagination, Affix, Card, Button } from 'antd';
+import { List, Layout, Drawer, Pagination, Button } from 'antd';
 import { AxiosError } from 'axios';
 import useLocalStorageState from 'use-local-storage-state';
 
-import { ListingCard, ListingSkeleton, DrawerContent } from './components';
-import { ListingsData } from './types';
+import { ListingsData, Data, Datum } from '../../types';
+import { ListingCard, ListingSkeleton, DrawerContent, ListingFavorite } from './components';
 
 const { Content } = Layout;
 
@@ -16,58 +16,27 @@ interface Props {
   page: number;
   setPage: (page: number) => void;
 }
+
+interface Drawer {
+  visible: boolean;
+  user: Data | null;
+}
 function AppContent({ data, error, searchTerm, page, setPage }: Props) {
   const [favorites, setFavorites] = useLocalStorageState('favorites', []);
   const [notes, setNotes] = useLocalStorageState('notes', []);
 
-  const [drawer, setDrawer] = useState({
+  const [drawer, setDrawer] = useState<Drawer>({
     visible: false,
     user: null,
   });
 
-  if (!searchTerm) {
-    return (
-      <Content className="home">
-        <div className="home-listings">
-          <List
-            dataSource={favorites}
-            grid={{
-              gutter: 16,
-              column: 4,
-              xs: 1,
-              sm: 2,
-              lg: 4,
-            }}
-            renderItem={bank => (
-              <List.Item
-                key={bank.ID}
-                actions={[
-                  <a
-                    key={`a-${bank.ID}`}
-                    onClick={() =>
-                      setDrawer({
-                        visible: true,
-                        user: bank,
-                      })
-                    }
-                  >
-                    View Profile
-                  </a>,
-                ]}
-              >
-                <ListingCard bank={bank} favorites={favorites} setFavorites={setFavorites} />
-              </List.Item>
-            )}
-          />
-        </div>
-      </Content>
-    );
-  }
+  if (!searchTerm) return <ListingFavorite favorites={favorites} setFavorites={setFavorites} />;
+
   if (!data) return <ListingSkeleton />;
   if (error) return <p>Error!</p>;
-
-  const showDrawer = bank => {};
-
+  console.log(data);
+  const { data: bankData, totals } = data;
+  console.log(bankData);
   const onClose = () => {
     setDrawer({
       visible: false,
@@ -82,14 +51,14 @@ function AppContent({ data, error, searchTerm, page, setPage }: Props) {
         showLessItems
         className="listings-pagination"
         current={page}
-        total={data.meta.total}
-        onChange={newPage => setPage(newPage)}
+        total={totals.count}
+        onChange={(newPage: number) => setPage(newPage)}
       />
 
       <Content className="home">
         <div className="home-listings">
           <List
-            dataSource={data.data}
+            dataSource={bankData}
             grid={{
               gutter: 16,
               column: 4,
@@ -97,7 +66,7 @@ function AppContent({ data, error, searchTerm, page, setPage }: Props) {
               sm: 2,
               lg: 4,
             }}
-            renderItem={bank => (
+            renderItem={(bank: Datum) => (
               <List.Item
                 key={bank.data.ID}
                 actions={[
@@ -120,7 +89,7 @@ function AppContent({ data, error, searchTerm, page, setPage }: Props) {
             )}
           />
           <Drawer closable placement="right" visible={drawer.visible} width={640} onClose={onClose}>
-            {drawer.user && <DrawerContent drawer={drawer} notes={notes} setNotes={setNotes} />}
+            {drawer.user && <DrawerContent drawer={drawer} favorites={favorites} notes={notes} setFavorites={setFavorites} setNotes={setNotes} />}
           </Drawer>
         </div>
       </Content>

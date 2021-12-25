@@ -1,14 +1,12 @@
 /* eslint-disable */
 // @ts-nocheck
-import useLocalStorageState from 'use-local-storage-state';
-
 import { BankTwoTone, HomeTwoTone, HeartOutlined } from '@ant-design/icons';
 import { Card, Typography, Space, Rate } from 'antd';
-import { motion, AnimatePresence } from 'framer-motion';
+
 
 const { Text, Title } = Typography;
 
-export const ListingCard = ({ bank, favorites, setFavorites, showDrawer }: Props) => {
+export const ListingCard = ({ bank, favorites, setFavorites }: Props) => {
   return (
     <Card hoverable>
       <div className="listing-card__details">
@@ -27,14 +25,14 @@ export const ListingCard = ({ bank, favorites, setFavorites, showDrawer }: Props
             {`${bank.data.STNAME} , ${bank.data.ZIP}`}
           </Text>
           <Rate
+            character={<HeartOutlined />}
+            count={1}
             defaultValue={favorites.find(x => x.data.ID === bank.data.ID) ? 1 : 0}
             onChange={() =>
               favorites.find(x => x.data.ID === bank.data.ID)
                 ? setFavorites([...favorites.filter(e => e.data.ID !== bank.data.ID)])
-                : setFavorites([...favorites, bank])
+                : setFavorites([...favorites, { data: bank.data }])
             }
-            character={<HeartOutlined />}
-            count={1}
           />
         </div>
       </div>
