@@ -7,25 +7,26 @@ import { FcMoneyTransfer, FcCalendar, FcLibrary, FcAddressBook } from 'react-ico
 
 const { TextArea } = Input;
 export const DrawerContent = ({ drawer: currentBank, notes, setNotes, favorites, setFavorites }) => {
-  const { NAME, ADDRESS, STNAME: STREET, ZIP, ESTYMD: ESTABLISHEDDATE, ASSET } = currentBank;
-
+  const [isFavorite, setIsFavorite] = useState(favorites.find(favorite => favorite.data.ID === currentBank.ID) ? 1 : 0);
   const [value, setValue] = useState('');
 
+  const hasNote = notes.find(note => note.ID === currentBank.ID);
+
+  const { NAME, ADDRESS, STNAME: STREET, ZIP, ESTYMD: ESTABLISHEDDATE, ASSET } = currentBank;
+
   useEffect(() => {
-    notes.find(note => note.ID === currentBank.ID) && setValue(notes.find(note => note.ID === currentBank.ID).note);
+    hasNote && setValue(notes.find(note => note.ID === currentBank.ID).note);
   }, []);
 
   const handleNoteSave = () => {
-    notes.find(note => note.ID === currentBank.ID)
+    hasNote
       ? setNotes([...notes.filter(x => x.ID !== currentBank.ID), { ID: currentBank.ID, note: value }])
       : setNotes([...notes, { ID: currentBank.ID, note: value }]);
   };
 
-  const [isFavorite, setIsFavorite] = useState(favorites.find(favorite => favorite.data.ID === currentBank.ID) ? 1 : 0);
-
   const handleFavoriteChange = () => {
     favorites.find(favorite => favorite.data.ID === currentBank.ID)
-      ? setFavorites([...favorites.filter(e => e.data.ID !== currentBank.ID)])
+      ? setFavorites([...favorites.filter(favorite => favorite.data.ID !== currentBank.ID)])
       : setFavorites([...favorites, { data: currentBank }]);
   };
 
@@ -58,10 +59,13 @@ export const DrawerContent = ({ drawer: currentBank, notes, setNotes, favorites,
       </h3>
 
       <TextArea rows={4} value={value} onChange={e => setValue(e.target.value)} />
-      <Button type="primary" onClick={handleNoteSave}>
-        Save Note
-      </Button>
-      <Rate character={<HeartOutlined />} count={1} defaultValue={isFavorite} onChange={handleFavoriteChange} />
+      <br />
+      <Space>
+        <Button type="primary" onClick={handleNoteSave}>
+          Save Note
+        </Button>
+        <Rate character={<HeartOutlined />} count={1} defaultValue={isFavorite} onChange={handleFavoriteChange} />
+      </Space>
     </>
   );
 };

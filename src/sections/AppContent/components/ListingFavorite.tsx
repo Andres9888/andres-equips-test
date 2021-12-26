@@ -11,7 +11,7 @@ interface Props {
   favorites: Datum[] | [];
   setFavorites: () => void;
 }
-export const ListingFavorite = ({ favorites, setFavorites }: Props) => {
+export const ListingFavorite = ({ favorites, setFavorites, setDrawer }: Props) => {
   return (
     <Content className="home">
       <div className="home-listings">
@@ -26,14 +26,14 @@ export const ListingFavorite = ({ favorites, setFavorites }: Props) => {
           }}
           renderItem={(bank: Data) => (
             <List.Item
-              key={bank.ID}
+              key={bank.data.ID}
               actions={[
                 <a
-                  key={`a-${bank.ID}`}
+                  key={`a-${bank.data.ID}`}
                   onClick={() =>
                     setDrawer({
                       visible: true,
-                      user: bank,
+                      user: bank.data,
                     })
                   }
                 >

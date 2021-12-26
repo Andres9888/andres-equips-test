@@ -9,10 +9,10 @@ const { Text, Title } = Typography;
 export const ListingCard = ({ bank, favorites, setFavorites }: Props) => {
   const { NAME, ADDRESS, STNAME: STREET, ZIP } = bank.data;
 
-  const [isFavorite, setIsFavorite] = useState(favorites.find(x => x.data.ID === bank.data.ID) ? 1 : 0);
+  const [isFavorite, setIsFavorite] = useState(favorites.find(favorite => favorite.data.ID === bank.data.ID) ? 1 : 0);
 
   const handleFavoriteChange = () => {
-    isFavorite
+    favorites.find(favorite => favorite.data.ID === bank.data.ID)
       ? setFavorites([...favorites.filter(favorite => favorite.data.ID !== bank.data.ID)])
       : setFavorites([...favorites, { data: bank.data }]);
   };
