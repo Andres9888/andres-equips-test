@@ -4,10 +4,14 @@
 import { List, Layout } from 'antd';
 
 import { ListingCard } from '../components';
-
+import { Datum, Data } from '../../../types';
 const { Content } = Layout;
 
-export const ListingFavorite = ({ favorites, setFavorites }) => {
+interface Props {
+  favorites: Datum[] | [];
+  setFavorites: () => void;
+}
+export const ListingFavorite = ({ favorites, setFavorites }: Props) => {
   return (
     <Content className="home">
       <div className="home-listings">
