@@ -8,14 +8,14 @@ import AppContent from './sections/AppContent';
 import AppHeader from './sections/AppHeader';
 import { ListingsData } from './types';
 
-const fetcher = (url: string): Promise<ListingsData> => axios.get(url).then((response: AxiosResponse) => response.data);
+const fetcher = (url: string): Promise<ListingsData | undefined> => axios.get(url).then((response: AxiosResponse) => response.data);
 function App() {
   const [searchTerm, setSearchTerm] = useState('');
   const [page, setPage] = useState(1);
   const limit = 16;
   const offset = (page - 1) * limit;
   const url = `https://banks.data.fdic.gov/api/institutions?offset=${offset}&fields=NAME,ADDRESS,ASSET,ACTIVE,ESTYMD,NETINC,STNAME,WEBADDR,ZIP,UNINUM,OFFICES,&sort_by=NAME&sort_order=ASC&limit=${limit}&search=NAME:${searchTerm}`;
-  const { data, error } = useSWR(url, fetcher);
+  const { data, error } = useSWR<ListingsData | undefined>(url, fetcher);
 
   const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
     setSearchTerm(event.target.value);

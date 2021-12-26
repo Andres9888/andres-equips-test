@@ -10,7 +10,7 @@ import { ListingCard, ListingSkeleton, DrawerContent, ListingFavorite } from './
 const { Content } = Layout;
 
 interface Props {
-  data: ListingsData;
+  data: ListingsData | undefined;
   error: AxiosError;
   searchTerm: string;
   page: number;

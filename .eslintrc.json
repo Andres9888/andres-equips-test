@@ -29,6 +29,7 @@
     //"unicorn"
   ],
   "rules": {
+    "react/jsx-curly-newline": "off",
     "import/no-unresolved": "off",
     "import/extensions": "off",
     // "unicorn/filename-case": [
