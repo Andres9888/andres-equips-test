@@ -53,3 +53,8 @@ export interface Parameters {
 export interface Totals {
   count: number;
 }
+
+export interface Note {
+  ID: string;
+  note: string;
+}

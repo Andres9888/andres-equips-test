@@ -1,18 +1,13 @@
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import { HeartOutlined } from '@ant-design/icons';
 import { Input, Space, Button, Rate } from 'antd';
 import { FcMoneyTransfer, FcCalendar, FcLibrary, FcAddressBook } from 'react-icons/fc';
 
 import { formatListingCurrency } from '../../../helper/formatCurrency';
-import { Datum } from '../../../types';
+import { Datum, Note } from '../../../types';
 
 const { TextArea } = Input;
-
-interface Note {
-  ID: string;
-  note: string;
-}
 
 interface Props {
   favorites: Datum[] | [];

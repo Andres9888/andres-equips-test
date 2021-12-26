@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 
-import { BankOutlined } from '@ant-design/icons';
+import { BankTwoTone } from '@ant-design/icons';
 import { Input, Layout, Affix } from 'antd';
 import Typed from 'typed.js';
 
@@ -46,7 +46,7 @@ function AppHeader({ searchTerm, handleSearchChange }: Props) {
         <div className="app-header__logo-search-section">
           <div className="app-header__logo">
             <div>
-              <BankOutlined />
+              <BankTwoTone />
             </div>
           </div>
           <Search placeholder="Search to filter what you are looking for" type="text" value={searchTerm} onChange={handleSearchChange} />;

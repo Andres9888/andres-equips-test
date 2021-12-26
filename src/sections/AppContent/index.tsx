@@ -4,25 +4,22 @@ import { List, Layout, Drawer, Pagination, Button } from 'antd';
 import { AxiosError } from 'axios';
 import useLocalStorageState from 'use-local-storage-state';
 
-import { ListingsData, Datum } from '../../types';
+import { ListingsData, Datum, Note } from '../../types';
 import { ListingCard, ListingSkeleton, DrawerContent, ListingFavorite } from './components';
 
 const { Content } = Layout;
-interface Note {
-  ID: string;
-  note: string;
+
+interface Drawer {
+  visible: boolean;
+  user: Datum | null;
 }
+
 interface Props {
   data: ListingsData | undefined;
   error: AxiosError;
   searchTerm: string;
   page: number;
   setPage: (page: number) => void;
-}
-
-interface Drawer {
-  visible: boolean;
-  user: Datum | null;
 }
 function AppContent({ data, error, searchTerm, page, setPage }: Props) {
   const [favorites, setFavorites] = useLocalStorageState<Datum[] | []>('favorites', []);
@@ -53,6 +50,7 @@ function AppContent({ data, error, searchTerm, page, setPage }: Props) {
         showLessItems
         className="listings-pagination"
         current={page}
+        showSizeChanger={false}
         total={totals.count}
         onChange={(newPage: number) => setPage(newPage)}
       />
