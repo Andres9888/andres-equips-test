@@ -14,7 +14,7 @@ function App() {
   const [page, setPage] = useState(1);
   const limit = 16;
   const offset = (page - 1) * limit;
-  const url = `https://banks.data.fdic.gov/api/institutions?offset=${offset}&fields=NAME,ADDRESS,ASSET,ACTIVE,ESTYMD,NETINC,STNAME,WEBADDR,ZIP,UNINUM,OFFICES,&sort_by=NAME&sort_order=ASC&limit=${limit}&search=NAME:${searchTerm}`;
+  const url = `https://banks.data.fdic.gov/api/institutions?offset=${offset}&fields=NAME,ADDRESS,ASSET,ESTYMD,NETINC,STNAME,WEBADDR,ZIP,OFFICES,&sort_by=NAME&sort_order=ASC&limit=${limit}&search=NAME:${searchTerm}`;
   const { data, error } = useSWR<ListingsData | undefined>(url, fetcher);
 
   const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>): void => {

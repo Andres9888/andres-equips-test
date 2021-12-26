@@ -32,13 +32,12 @@ function AppContent({ data, error, searchTerm, page, setPage }: Props) {
     user: null,
   });
 
-  if (!searchTerm) return <ListingFavorite favorites={favorites} setFavorites={setFavorites} />;
-
+  if (!searchTerm) return <ListingFavorite favorites={favorites} setFavorites={setFavorites} setDrawer={setDrawer} />;
   if (!data) return <ListingSkeleton />;
   if (error) return <p>Error!</p>;
-  console.log(data);
+ 
   const { data: bankData, totals } = data;
-  console.log(bankData);
+ 
   const onClose = () => {
     setDrawer({
       visible: false,
