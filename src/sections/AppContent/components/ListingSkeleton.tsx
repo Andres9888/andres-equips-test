@@ -1,6 +1,3 @@
-/* eslint-disable */
-// @ts-nocheck
-
 import { Card, List, Layout } from 'antd';
 
 const { Content } = Layout;

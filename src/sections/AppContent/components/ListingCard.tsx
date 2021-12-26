@@ -1,20 +1,29 @@
-/* eslint-disable */
-// @ts-nocheck
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+
 import { BankTwoTone, HomeTwoTone, HeartOutlined } from '@ant-design/icons';
 import { Card, Typography, Space, Rate } from 'antd';
 
+import { Datum } from '../../../types';
+
 const { Text, Title } = Typography;
+
+interface Props {
+  favorites: Datum[] | [];
+  setFavorites: (favorites: Datum[] | []) => void;
+  bank: Datum;
+}
 
 export const ListingCard = ({ bank, favorites, setFavorites }: Props) => {
   const { NAME, ADDRESS, STNAME: STREET, ZIP } = bank.data;
 
-  const [isFavorite, setIsFavorite] = useState(favorites.find(favorite => favorite.data.ID === bank.data.ID) ? 1 : 0);
-
+  const [isFavorite, setIsFavorite] = useState<number>();
+  useEffect(() => {
+    setIsFavorite(favorites.find(favorite => favorite.data.ID === bank.data.ID) ? 1 : 0);
+  });
   const handleFavoriteChange = () => {
     favorites.find(favorite => favorite.data.ID === bank.data.ID)
       ? setFavorites([...favorites.filter(favorite => favorite.data.ID !== bank.data.ID)])
-      : setFavorites([...favorites, { data: bank.data }]);
+      : setFavorites([...favorites, bank]);
   };
 
   return (
@@ -34,7 +43,7 @@ export const ListingCard = ({ bank, favorites, setFavorites }: Props) => {
           <Text ellipsis className="listing-card__address">
             {`${STREET} , ${ZIP}`}
           </Text>
-          <Rate character={<HeartOutlined />} count={1} defaultValue={isFavorite} onChange={handleFavoriteChange} />
+          <Rate character={<HeartOutlined />} count={1} value={isFavorite} onChange={handleFavoriteChange} />
         </div>
       </div>
     </Card>

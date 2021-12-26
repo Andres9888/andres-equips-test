@@ -1,33 +1,45 @@
-/* eslint-disable */
-// @ts-nocheck
 import { useEffect, useState } from 'react';
+
 import { HeartOutlined } from '@ant-design/icons';
 import { Input, Space, Button, Rate } from 'antd';
 import { FcMoneyTransfer, FcCalendar, FcLibrary, FcAddressBook } from 'react-icons/fc';
 
+import { formatListingCurrency } from '../../../helper/formatCurrency';
+import { Datum } from '../../../types';
+
 const { TextArea } = Input;
-export const DrawerContent = ({ drawer: currentBank, notes, setNotes, favorites, setFavorites }) => {
-  const [isFavorite, setIsFavorite] = useState(favorites.find(favorite => favorite.data.ID === currentBank.ID) ? 1 : 0);
+
+interface Note {
+  ID: string;
+  note: string;
+}
+
+interface Props {
+  favorites: Datum[] | [];
+  setFavorites: (favorites: Datum[] | []) => void;
+  currentBank: Datum;
+  notes: Note[] | [];
+  setNotes: (favorites: Note[] | []) => void;
+}
+export const DrawerContent = ({ currentBank, notes, setNotes, favorites, setFavorites }: Props) => {
+  const { NAME, ADDRESS, STNAME: STREET, ZIP, ESTYMD: ESTABLISHEDDATE, ASSET, ID } = currentBank.data;
+  const [isFavorite, setIsFavorite] = useState(favorites.find(favorite => favorite.data.ID === ID) ? 1 : 0);
   const [value, setValue] = useState('');
 
-  const hasNote = notes.find(note => note.ID === currentBank.ID);
-
-  const { NAME, ADDRESS, STNAME: STREET, ZIP, ESTYMD: ESTABLISHEDDATE, ASSET } = currentBank;
+  const hasNote = notes.find(note => note.ID === ID);
 
   useEffect(() => {
-    hasNote && setValue(notes.find(note => note.ID === currentBank.ID).note);
+    hasNote && setValue(hasNote.note);
   }, []);
 
   const handleNoteSave = () => {
-    hasNote
-      ? setNotes([...notes.filter(x => x.ID !== currentBank.ID), { ID: currentBank.ID, note: value }])
-      : setNotes([...notes, { ID: currentBank.ID, note: value }]);
+    hasNote ? setNotes([...notes.filter(note => note.ID !== ID), { ID, note: value }]) : setNotes([...notes, { ID, note: value }]);
   };
 
   const handleFavoriteChange = () => {
-    favorites.find(favorite => favorite.data.ID === currentBank.ID)
-      ? setFavorites([...favorites.filter(favorite => favorite.data.ID !== currentBank.ID)])
-      : setFavorites([...favorites, { data: currentBank }]);
+    favorites.find(favorite => favorite.data.ID === ID)
+      ? setFavorites([...favorites.filter(favorite => favorite.data.ID !== ID)])
+      : setFavorites([...favorites, currentBank]);
   };
 
   return (
@@ -54,7 +66,7 @@ export const DrawerContent = ({ drawer: currentBank, notes, setNotes, favorites,
       <h3>
         <Space>
           <FcMoneyTransfer />
-          {`Total Assets : ${ASSET}`}
+          {`Total Assets : ${formatListingCurrency(ASSET, 1000)}`}
         </Space>
       </h3>
 

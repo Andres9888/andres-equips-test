@@ -1,16 +1,17 @@
-/* eslint-disable */
-// @ts-nocheck
 import { useState } from 'react';
 
 import { List, Layout, Drawer, Pagination, Button } from 'antd';
 import { AxiosError } from 'axios';
 import useLocalStorageState from 'use-local-storage-state';
 
-import { ListingsData, Data, Datum } from '../../types';
+import { ListingsData, Datum } from '../../types';
 import { ListingCard, ListingSkeleton, DrawerContent, ListingFavorite } from './components';
 
 const { Content } = Layout;
-
+interface Note {
+  ID: string;
+  note: string;
+}
 interface Props {
   data: ListingsData | undefined;
   error: AxiosError;
@@ -21,23 +22,23 @@ interface Props {
 
 interface Drawer {
   visible: boolean;
-  user: Data | null;
+  user: Datum | null;
 }
 function AppContent({ data, error, searchTerm, page, setPage }: Props) {
   const [favorites, setFavorites] = useLocalStorageState<Datum[] | []>('favorites', []);
-  const [notes, setNotes] = useLocalStorageState('notes', []);
+  const [notes, setNotes] = useLocalStorageState<Note[] | []>('notes', []);
 
   const [drawer, setDrawer] = useState<Drawer>({
     visible: false,
     user: null,
   });
 
-  if (!searchTerm) return <ListingFavorite favorites={favorites} setFavorites={setFavorites} setDrawer={setDrawer} />;
+  if (!searchTerm) return <ListingFavorite favorites={favorites} setFavorites={setFavorites} />;
   if (!data) return <ListingSkeleton />;
   if (error) return <p>Error!</p>;
- 
+
   const { data: bankData, totals } = data;
- 
+
   const onClose = () => {
     setDrawer({
       visible: false,
@@ -77,7 +78,7 @@ function AppContent({ data, error, searchTerm, page, setPage }: Props) {
                     onClick={() =>
                       setDrawer({
                         visible: true,
-                        user: bank.data,
+                        user: bank,
                       })
                     }
                   >
@@ -91,7 +92,7 @@ function AppContent({ data, error, searchTerm, page, setPage }: Props) {
           />
           <Drawer closable placement="right" visible={drawer.visible} width={640} onClose={onClose}>
             {drawer.user && (
-              <DrawerContent drawer={drawer.user} favorites={favorites} notes={notes} setFavorites={setFavorites} setNotes={setNotes} />
+              <DrawerContent currentBank={drawer.user} favorites={favorites} notes={notes} setFavorites={setFavorites} setNotes={setNotes} />
             )}
           </Drawer>
         </div>

@@ -1,17 +1,15 @@
-/* eslint-disable */
-// @ts-nocheck
-
 import { List, Layout } from 'antd';
 
+import { Datum } from '../../../types';
 import { ListingCard } from '../components';
-import { Datum, Data } from '../../../types';
+
 const { Content } = Layout;
 
 interface Props {
   favorites: Datum[] | [];
-  setFavorites: () => void;
+  setFavorites: (favorites: Datum[] | []) => void;
 }
-export const ListingFavorite = ({ favorites, setFavorites, setDrawer }: Props) => {
+export const ListingFavorite = ({ favorites, setFavorites }: Props) => {
   return (
     <Content className="home">
       <div className="home-listings">
@@ -24,23 +22,8 @@ export const ListingFavorite = ({ favorites, setFavorites, setDrawer }: Props) =
             sm: 2,
             lg: 4,
           }}
-          renderItem={(bank: Data) => (
-            <List.Item
-              key={bank.data.ID}
-              actions={[
-                <a
-                  key={`a-${bank.data.ID}`}
-                  onClick={() =>
-                    setDrawer({
-                      visible: true,
-                      user: bank.data,
-                    })
-                  }
-                >
-                  View Profile
-                </a>,
-              ]}
-            >
+          renderItem={(bank: Datum) => (
+            <List.Item key={bank.data.ID}>
               <ListingCard bank={bank} favorites={favorites} setFavorites={setFavorites} />
             </List.Item>
           )}

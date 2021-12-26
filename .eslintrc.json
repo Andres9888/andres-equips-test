@@ -32,6 +32,7 @@
     "react/jsx-curly-newline": "off",
     "import/no-unresolved": "off",
     "import/extensions": "off",
+    "no-unused-expressions": "off",
     // "unicorn/filename-case": [
     //   "error",
     //   {

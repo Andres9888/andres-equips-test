@@ -24,6 +24,9 @@
     "~sections/*": [
       "src/sections/*"
     ],
+    "~helper/*": [
+      "src/helper/*"
+    ],
   },
   "include": [
     "src"
