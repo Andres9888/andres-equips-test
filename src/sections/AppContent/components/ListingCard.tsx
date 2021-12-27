@@ -4,14 +4,12 @@ import { BankTwoTone, HomeTwoTone, HeartOutlined } from '@ant-design/icons';
 import { Card, Typography, Space, Rate } from 'antd';
 import { Datum } from 'types';
 
-const { Text, Title } = Typography;
-
 interface Props {
   favorites: Datum[] | [];
   setFavorites: (favorites: Datum[] | []) => void;
   bank: Datum;
 }
-
+const { Text, Title } = Typography;
 export const ListingCard = ({ bank, favorites, setFavorites }: Props) => {
   const { NAME, ADDRESS, STNAME: STREET, ZIP } = bank.data;
 

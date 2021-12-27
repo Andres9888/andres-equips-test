@@ -11,7 +11,7 @@ const { Content } = Layout;
 
 interface Drawer {
   visible: boolean;
-  user: Datum | null;
+  currentBank: Datum | null;
 }
 
 interface Props {
@@ -27,7 +27,7 @@ function AppContent({ data, error, searchTerm, page, setPage }: Props) {
 
   const [drawer, setDrawer] = useState<Drawer>({
     visible: false,
-    user: null,
+    currentBank: null,
   });
 
   if (!searchTerm) return <ListingFavorite favorites={favorites} setFavorites={setFavorites} />;
@@ -70,7 +70,7 @@ function AppContent({ data, error, searchTerm, page, setPage }: Props) {
                     onClick={() =>
                       setDrawer({
                         visible: true,
-                        user: bank,
+                        currentBank: bank,
                       })
                     }
                   >
@@ -90,12 +90,12 @@ function AppContent({ data, error, searchTerm, page, setPage }: Props) {
             onClose={() => {
               setDrawer({
                 visible: false,
-                user: null,
+                currentBank: null,
               });
             }}
           >
-            {drawer.user && (
-              <DrawerContent currentBank={drawer.user} favorites={favorites} notes={notes} setFavorites={setFavorites} setNotes={setNotes} />
+            {drawer.currentBank && (
+              <DrawerContent currentBank={drawer.currentBank} favorites={favorites} notes={notes} setFavorites={setFavorites} setNotes={setNotes} />
             )}
           </Drawer>
         </div>

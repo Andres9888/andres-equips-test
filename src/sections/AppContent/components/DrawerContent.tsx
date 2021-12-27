@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import { HeartOutlined } from '@ant-design/icons';
 import { Input, Space, Button, Rate, Divider } from 'antd';
@@ -7,8 +7,6 @@ import { Datum, Note } from 'types';
 
 import { formatListingCurrency } from '../../../helper/formatCurrency';
 
-const { TextArea } = Input;
-
 interface Props {
   favorites: Datum[] | [];
   setFavorites: (favorites: Datum[] | []) => void;
@@ -16,9 +14,11 @@ interface Props {
   notes: Note[] | [];
   setNotes: (favorites: Note[] | []) => void;
 }
+const { TextArea } = Input;
+
 export const DrawerContent = ({ currentBank, notes, setNotes, favorites, setFavorites }: Props) => {
   const { NAME, ADDRESS, STNAME: STREET, ZIP, ESTYMD: ESTABLISHEDDATE, ASSET, ID } = currentBank.data;
-  const [isFavorite, setIsFavorite] = useState(favorites.find(favorite => favorite.data.ID === ID) ? 1 : 0);
+  const [isFavorite] = useState(favorites.find(favorite => favorite.data.ID === ID) ? 1 : 0);
   const [value, setValue] = useState('');
 
   const hasNote = notes.find(note => note.ID === ID);
