@@ -1,27 +1,23 @@
 import { useState } from 'react';
 
-import { List, Layout, Drawer, Pagination, Button, Empty } from 'antd';
+import { List, Layout, Button, Empty } from 'antd';
 import { AxiosError } from 'axios';
-import { ListingsData, Datum, Note } from 'types';
+import { ListingsData, Datum, Note, Drawer } from 'types';
 import useLocalStorageState from 'use-local-storage-state';
 
-import { ListingCard, ListingSkeleton, DrawerContent, ListingFavorite } from './components';
+import { ListingCard, ListingSkeleton, DrawerContent, ListingFavorite, ListingPagination, ListingDrawer } from './components';
 
 const { Content } = Layout;
-
-interface Drawer {
-  visible: boolean;
-  currentBank: Datum | null;
-}
 
 interface Props {
   data: ListingsData | undefined;
   error: AxiosError;
   searchTerm: string;
+  limit: number;
   page: number;
   setPage: (page: number) => void;
 }
-function AppContent({ data, error, searchTerm, page, setPage }: Props) {
+function AppContent({ data, error, searchTerm, page, setPage, limit }: Props) {
   const [favorites, setFavorites] = useLocalStorageState<Datum[] | []>('favorites', []);
   const [notes, setNotes] = useLocalStorageState<Note[] | []>('notes', []);
 
@@ -34,20 +30,11 @@ function AppContent({ data, error, searchTerm, page, setPage }: Props) {
   if (!data) return <ListingSkeleton />;
   if (error) return <Empty image="/images/error-image.gif" />;
 
-  const { data: bankData, totals, meta } = data;
+  const { data: bankData, totals } = data;
 
   return (
-    <div>
-      <Pagination
-        hideOnSinglePage
-        showLessItems
-        className="listings-pagination"
-        current={page}
-        pageSize={parseInt(meta.parameters.limit, 10)}
-        showSizeChanger={false}
-        total={totals.count}
-        onChange={(newPage: number) => setPage(newPage)}
-      />
+    <>
+      <ListingPagination limit={limit} page={page} setPage={setPage} total={totals.count} />
 
       <Content className="home">
         <div className="home-listings">
@@ -82,25 +69,14 @@ function AppContent({ data, error, searchTerm, page, setPage }: Props) {
               </List.Item>
             )}
           />
-          <Drawer
-            closable
-            placement="right"
-            visible={drawer.visible}
-            width={640}
-            onClose={() => {
-              setDrawer({
-                visible: false,
-                currentBank: null,
-              });
-            }}
-          >
+          <ListingDrawer isVisible={drawer.visible} setDrawer={setDrawer}>
             {drawer.currentBank && (
               <DrawerContent currentBank={drawer.currentBank} favorites={favorites} notes={notes} setFavorites={setFavorites} setNotes={setNotes} />
             )}
-          </Drawer>
+          </ListingDrawer>
         </div>
       </Content>
-    </div>
+    </>
   );
 }
 

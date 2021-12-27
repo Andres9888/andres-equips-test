@@ -1,3 +1,7 @@
+export interface Drawer {
+  visible: boolean;
+  currentBank: Datum | null;
+}
 export interface ListingsData {
   meta: Meta;
   data: Datum[];

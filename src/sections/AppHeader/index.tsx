@@ -26,7 +26,7 @@ function AppHeader({ searchTerm, handleSearchChange }: Props) {
       typeSpeed: 25,
       backSpeed: 25,
       cursorChar: '_',
-      startDelay: 1000,
+      startDelay: 1150,
       smartBackspace: true,
       showCursor: true,
     };
