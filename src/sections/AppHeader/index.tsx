@@ -2,6 +2,7 @@ import { useEffect, ChangeEvent } from 'react';
 
 import { BankTwoTone } from '@ant-design/icons';
 import { Input, Layout, Affix } from 'antd';
+import { options } from 'config/typedConfig';
 import Typed from 'typed.js';
 
 interface Props {
@@ -12,29 +13,8 @@ const { Header } = Layout;
 const { Search } = Input;
 function AppHeader({ searchTerm, handleSearchChange }: Props) {
   useEffect(() => {
-    // Options for the Typed object
-    const options = {
-      strings: [
-        'Hey, If you need to find something just search and it will filter it',
-        'Or Leave it Blank to Return your Favorite Banks',
-        "Let's Go!",
-        'Search for your favorite bank',
-        '',
-      ],
-      bindInputFocusEvents: true,
-      attr: 'placeholder',
-      typeSpeed: 25,
-      backSpeed: 25,
-      cursorChar: '_',
-      startDelay: 1150,
-      smartBackspace: true,
-      showCursor: true,
-    };
-
-    // New Typed instance
     const typed = new Typed('.ant-input', options);
 
-    // Destroy Typed instance on unmounting the component to prevent memory leaks
     return () => {
       typed.destroy();
     };
