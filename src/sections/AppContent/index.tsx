@@ -34,7 +34,7 @@ function AppContent({ data, error, searchTerm, page, setPage }: Props) {
   if (!data) return <ListingSkeleton />;
   if (error) return <Empty image="/images/error-image.gif" />;
 
-  const { data: bankData, totals } = data;
+  const { data: bankData, totals, meta } = data;
 
   return (
     <div>
@@ -43,6 +43,7 @@ function AppContent({ data, error, searchTerm, page, setPage }: Props) {
         showLessItems
         className="listings-pagination"
         current={page}
+        pageSize={parseInt(meta.parameters.limit, 10)}
         showSizeChanger={false}
         total={totals.count}
         onChange={(newPage: number) => setPage(newPage)}

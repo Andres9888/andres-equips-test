@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 
 import { HeartOutlined } from '@ant-design/icons';
-import { Input, Space, Button, Rate } from 'antd';
+import { Input, Space, Button, Rate, Divider } from 'antd';
 import { FcMoneyTransfer, FcCalendar, FcLibrary, FcAddressBook } from 'react-icons/fc';
 import { Datum, Note } from 'types';
 
@@ -66,12 +66,20 @@ export const DrawerContent = ({ currentBank, notes, setNotes, favorites, setFavo
       </h3>
 
       <TextArea rows={4} value={value} onChange={e => setValue(e.target.value)} />
-      <br />
+      <Divider />
       <Space>
         <Button type="primary" onClick={handleNoteSave}>
           Save Note
         </Button>
-        <Rate character={<HeartOutlined />} count={1} defaultValue={isFavorite} onChange={handleFavoriteChange} />
+        <Divider type="vertical" />
+
+        <Rate
+          character={<HeartOutlined />}
+          count={1}
+          defaultValue={isFavorite}
+          tooltips={['Click me to set as your favorite']}
+          onChange={handleFavoriteChange}
+        />
       </Space>
     </>
   );

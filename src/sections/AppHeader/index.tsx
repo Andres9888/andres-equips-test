@@ -49,7 +49,7 @@ function AppHeader({ searchTerm, handleSearchChange }: Props) {
               <BankTwoTone />
             </div>
           </div>
-          <Search placeholder="Search to filter what you are looking for" type="text" value={searchTerm} onChange={handleSearchChange} />;
+          <Search placeholder="Search to filter what you are looking for" type="text" value={searchTerm} onChange={handleSearchChange} />
         </div>
       </Header>
     </Affix>

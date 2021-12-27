@@ -42,7 +42,13 @@ export const ListingCard = ({ bank, favorites, setFavorites }: Props) => {
           <Text ellipsis className="listing-card__address">
             {`${STREET} , ${ZIP}`}
           </Text>
-          <Rate character={<HeartOutlined />} count={1} value={isFavorite} onChange={handleFavoriteChange} />
+          <Rate
+            character={<HeartOutlined />}
+            count={1}
+            tooltips={['Click me to set as your favorite']}
+            value={isFavorite}
+            onChange={handleFavoriteChange}
+          />
         </div>
       </div>
     </Card>
