@@ -4,12 +4,17 @@ This is a simple financial institutions management app. You can search for banks
 
 This project was bootstrapped with Create React App, Antd for components, useSWR and Axios for data fetching, and msw (Mock Service Worker) for testing and mocking server.
 
-## Demo
-
-You can view the demo at [https://andres-equips-test.vercel.app/](https://andres-equips-test.vercel.app/)
 ## Tech Stack
 
 **Client:** React, Antd, useSWR, Axios, msw
+## Demo
+
+You can view the demo at [https://andres-equips-test.vercel.app/](https://andres-equips-test.vercel.app/)
+
+## Screenshots
+
+![App Screenshot](https://raw.github.com/andres9888/andres-equips-test/master/public/images/screenshot.png)
+
 
 
 ## Available Scripts
@@ -39,7 +44,5 @@ Your app is ready to be deployed!
 
 See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
 
-## Screenshots
 
-![App Screenshot](https://raw.github.com/andres9888/andres-equips-test/master/public/images/screenshot.png)
 
