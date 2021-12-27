@@ -4,8 +4,11 @@ import { render, screen } from '@testing-library/react';
 
 import App from './App';
 
-test('renders learn react link', () => {
-  render(<App />);
-  const linkElement = screen.getByText(/learn react/i);
-  expect(linkElement).toBeInTheDocument();
+describe('Home', () => {
+  it('Renders no data text when search bar is empty and no current favorites set', () => {
+    render(<App />);
+
+    const noDataText = screen.getByText(/No Data/i);
+    expect(noDataText).toBeInTheDocument();
+  });
 });

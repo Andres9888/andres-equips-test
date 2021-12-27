@@ -1,7 +1,10 @@
-# Getting Started with Create React App
+# About this App
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This is a simple financial institutions management app. You can search for banks, save your favorites, and view extra details on the bank. You can also take notes on the bank in the detail page. All favorites and notes are saved in the local storage. You can view favorites when the search bar is empty
 
+This project was bootstrapped with Create React App, Antd for components, useSWR and Axios for data fetching, and msw (Mock Service Worker) for testing and mocking server.
+
+![Settings Window](https://raw.github.com/andres9888/andres-equips-test/master/public/images/screenshot.png
 ## Available Scripts
 
 In the project directory, you can run:
@@ -29,18 +32,4 @@ Your app is ready to be deployed!
 
 See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
 
-### `npm run eject`
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
