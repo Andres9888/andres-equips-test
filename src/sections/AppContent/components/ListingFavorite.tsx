@@ -1,4 +1,5 @@
 import { List, Layout } from 'antd';
+import { gridOptions } from 'config/ListGridConfig';
 import { Datum } from 'types';
 
 import { ListingCard } from '../components';
@@ -15,13 +16,7 @@ export const ListingFavorite = ({ favorites, setFavorites }: Props) => {
       <div className="home-listings">
         <List
           dataSource={favorites}
-          grid={{
-            gutter: 16,
-            column: 4,
-            xs: 1,
-            sm: 2,
-            lg: 4,
-          }}
+          grid={gridOptions}
           renderItem={(bank: Datum) => (
             <List.Item key={bank.data.ID}>
               <ListingCard bank={bank} favorites={favorites} setFavorites={setFavorites} />

@@ -1,4 +1,5 @@
 import { Card, List, Layout } from 'antd';
+import { gridOptions } from 'config/ListGridConfig';
 
 const { Content } = Layout;
 const emptyData = new Array(16).fill({});
@@ -8,13 +9,7 @@ export const ListingSkeleton = () => {
       <div className="home-listings">
         <List
           dataSource={emptyData}
-          grid={{
-            gutter: 16,
-            column: 4,
-            xs: 1,
-            sm: 2,
-            lg: 4,
-          }}
+          grid={gridOptions}
           renderItem={() => (
             <List.Item>
               <Card loading className="listings-skeleton__card" />

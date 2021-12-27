@@ -2,6 +2,7 @@ import { useState } from 'react';
 
 import { List, Layout, Button, Empty } from 'antd';
 import { AxiosError } from 'axios';
+import { gridOptions } from 'config/ListGridConfig';
 import { ListingsData, Datum, Note, Drawer } from 'types';
 import useLocalStorageState from 'use-local-storage-state';
 
@@ -40,13 +41,7 @@ function AppContent({ data, error, searchTerm, page, setPage, limit }: Props) {
         <div className="home-listings">
           <List
             dataSource={bankData}
-            grid={{
-              gutter: 16,
-              column: 4,
-              xs: 1,
-              sm: 2,
-              lg: 4,
-            }}
+            grid={gridOptions}
             renderItem={(bank: Datum) => (
               <List.Item
                 key={bank.data.ID}
