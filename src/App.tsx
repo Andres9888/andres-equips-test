@@ -1,12 +1,12 @@
 import './App.css';
-import React, { useState } from 'react';
+import { useState, ChangeEvent } from 'react';
 
 import axios, { AxiosResponse } from 'axios';
 import useSWR from 'swr';
+import { ListingsData } from 'types';
 
 import AppContent from './sections/AppContent';
 import AppHeader from './sections/AppHeader';
-import { ListingsData } from './types';
 
 const fetcher = (url: string): Promise<ListingsData | undefined> => axios.get(url).then((response: AxiosResponse) => response.data);
 function App() {
@@ -17,7 +17,7 @@ function App() {
   const url = `https://banks.data.fdic.gov/api/institutions?offset=${offset}&fields=NAME,ADDRESS,ASSET,ESTYMD,NETINC,STNAME,WEBADDR,ZIP,OFFICES,&sort_by=NAME&sort_order=ASC&limit=${limit}&search=NAME:${searchTerm}`;
   const { data, error } = useSWR<ListingsData | undefined>(url, fetcher);
 
-  const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
+  const handleSearchChange = (event: ChangeEvent<HTMLInputElement>): void => {
     setSearchTerm(event.target.value);
   };
 

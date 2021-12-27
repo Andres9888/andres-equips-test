@@ -2,8 +2,7 @@ import { useEffect, useState } from 'react';
 
 import { BankTwoTone, HomeTwoTone, HeartOutlined } from '@ant-design/icons';
 import { Card, Typography, Space, Rate } from 'antd';
-
-import { Datum } from '../../../types';
+import { Datum } from 'types';
 
 const { Text, Title } = Typography;
 

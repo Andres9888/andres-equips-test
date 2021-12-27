@@ -3,9 +3,9 @@ import React, { useEffect, useState } from 'react';
 import { HeartOutlined } from '@ant-design/icons';
 import { Input, Space, Button, Rate } from 'antd';
 import { FcMoneyTransfer, FcCalendar, FcLibrary, FcAddressBook } from 'react-icons/fc';
+import { Datum, Note } from 'types';
 
 import { formatListingCurrency } from '../../../helper/formatCurrency';
-import { Datum, Note } from '../../../types';
 
 const { TextArea } = Input;
 

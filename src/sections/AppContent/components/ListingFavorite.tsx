@@ -1,6 +1,6 @@
 import { List, Layout } from 'antd';
+import { Datum } from 'types';
 
-import { Datum } from '../../../types';
 import { ListingCard } from '../components';
 
 const { Content } = Layout;

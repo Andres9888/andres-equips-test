@@ -18,15 +18,8 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "noEmit": true,
-    "jsx": "react-jsx"
-  },
-  "paths": {
-    "~sections/*": [
-      "src/sections/*"
-    ],
-    "~helper/*": [
-      "src/helper/*"
-    ],
+    "jsx": "react-jsx",
+    "baseUrl": "src"
   },
   "include": [
     "src"

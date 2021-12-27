@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import { useEffect, ChangeEvent } from 'react';
 
 import { BankTwoTone } from '@ant-design/icons';
 import { Input, Layout, Affix } from 'antd';
@@ -6,7 +6,7 @@ import Typed from 'typed.js';
 
 interface Props {
   searchTerm: string;
-  handleSearchChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  handleSearchChange: (event: ChangeEvent<HTMLInputElement>) => void;
 }
 const { Header } = Layout;
 const { Search } = Input;

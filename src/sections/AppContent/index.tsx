@@ -1,10 +1,10 @@
 import { useState } from 'react';
 
-import { List, Layout, Drawer, Pagination, Button } from 'antd';
+import { List, Layout, Drawer, Pagination, Button, Empty } from 'antd';
 import { AxiosError } from 'axios';
+import { ListingsData, Datum, Note } from 'types';
 import useLocalStorageState from 'use-local-storage-state';
 
-import { ListingsData, Datum, Note } from '../../types';
 import { ListingCard, ListingSkeleton, DrawerContent, ListingFavorite } from './components';
 
 const { Content } = Layout;
@@ -32,16 +32,9 @@ function AppContent({ data, error, searchTerm, page, setPage }: Props) {
 
   if (!searchTerm) return <ListingFavorite favorites={favorites} setFavorites={setFavorites} />;
   if (!data) return <ListingSkeleton />;
-  if (error) return <p>Error!</p>;
+  if (error) return <Empty image="/images/error-image.gif" />;
 
   const { data: bankData, totals } = data;
-
-  const onClose = () => {
-    setDrawer({
-      visible: false,
-      user: null,
-    });
-  };
 
   return (
     <div>
@@ -88,7 +81,18 @@ function AppContent({ data, error, searchTerm, page, setPage }: Props) {
               </List.Item>
             )}
           />
-          <Drawer closable placement="right" visible={drawer.visible} width={640} onClose={onClose}>
+          <Drawer
+            closable
+            placement="right"
+            visible={drawer.visible}
+            width={640}
+            onClose={() => {
+              setDrawer({
+                visible: false,
+                user: null,
+              });
+            }}
+          >
             {drawer.user && (
               <DrawerContent currentBank={drawer.user} favorites={favorites} notes={notes} setFavorites={setFavorites} setNotes={setNotes} />
             )}
