@@ -9,7 +9,7 @@ This project was bootstrapped with Create React App, Antd for components, useSWR
 **Client:** React, Antd, useSWR, Axios, msw
 ## Demo
 
-You can view the demo at [https://andres-equips-test.vercel.app/](https://andres-equips-test.vercel.app/)
+You can view the demo at [https://fdic-financial-manager.vercel.app/](https://fdic-financial-manager.vercel.app/)
 
 ## Screenshots
 
